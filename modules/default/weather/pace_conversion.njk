@@ -1,0 +1,22 @@
+{% if current %}
+  {% set paces = [0,1,2,3,4,5,6] %}
+  <table class="{{ config.tableClass }}">
+      {% for p in paces %}
+          <tr {% if config.colored %}class="colored"{% endif %}>
+              <td class="align-right  old-pace">
+                  {{ current.oldPaces()[p] }}
+              </td>
+              <td class="align-right bright new-pace">
+                  {{ current.newPaces()[p] }}
+              </td>
+          </tr>
+      {% endfor %}
+  </table>
+{% else %}
+    <div class="dimmed light small">
+        {{ "LOADING" | translate }}
+    </div>
+{% endif %}
+
+<!-- Uncomment the line below to see the contents of the `current` object. -->
+<!-- <div style="word-wrap:break-word" class="xsmall dimmed">{{current | dump}}</div> -->

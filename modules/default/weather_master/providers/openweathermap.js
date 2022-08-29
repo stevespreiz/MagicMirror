@@ -103,7 +103,6 @@ WeatherProvider.register("openweathermap", {
 					this.config.weatherEndpoint = "/forecast";
 					break;
 				case "current":
-				case "pace_conversion":
 					this.config.weatherEndpoint = "/weather";
 					break;
 				default:

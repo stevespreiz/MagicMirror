@@ -97,48 +97,6 @@ class WeatherObject {
 		return moment().isBetween(this.sunrise, this.sunset) ? "sunset" : "sunrise";
 	}
 
-	dewPointAdjustment() {
-		const tempInF = this.tempUnits === "imperial" ? this.temperature : (this.temperature * 9) / 5 + 32;
-		const tempInC = this.tempUnits === "imperial" ? (this.temperature-32) * 5 / 9 : this.temperature;
-
-		let dewPointInC = tempInC - ((100 - this.humidity)/5);
-		let dewPointInF = dewPointInC * 9 / 5 + 32;
-
-		let index = tempInF + dewPointInF;
-		console.log(index);
-
-		let percentChange = (1/800*Math.pow(index-100,2)+1/40*(index-100))/100; //decimal units
-		console.log(percentChange);
-
-		if (index > 140)
-			return percentChange;
-		return 0;
-	}
-	oldPaces() {
-		return ["5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00"]
-	}
-
-	newPaces() {
-		let old_paces_string = this.oldPaces();
-		let old_paces_float = [300, 330, 360, 390, 420, 450, 480];
-
-		let change = this.dewPointAdjustment();
-
-		let new_paces_float = old_paces_float.map((x) => x*(1+change));
-
-		let new_paces_string = old_paces_string.map((x)=>x);
-		for(let i = 0; i < new_paces_string.length; i++){
-			new_paces_string[i] = Math.floor(new_paces_float[i]/60).toString() + ':';
-		 	let seconds = Math.round(new_paces_float[i]%60);
-			if(seconds > 9)
-				new_paces_string[i] += seconds.toString();
-			else
-				new_paces_string[i] += '0' + seconds.toString();
-		}
-		console.log(new_paces_string);
-		return new_paces_string;
-	}
-
 	feelsLike() {
 		if (this.feelsLikeTemp) {
 			return this.feelsLikeTemp;

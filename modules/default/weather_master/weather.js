@@ -120,8 +120,6 @@ Module.register("weather", {
 				return "current.njk";
 			case "hourly":
 				return "hourly.njk";
-			case "pace_conversion":
-				return "pace_conversion.njk";
 			case "daily":
 			case "forecast":
 				return "forecast.njk";
@@ -180,9 +178,6 @@ Module.register("weather", {
 					break;
 				case "hourly":
 					this.weatherProvider.fetchWeatherHourly();
-					break;
-				case "pace_conversion":
-					this.weatherProvider.fetchCurrentWeather();
 					break;
 				case "daily":
 				case "forecast":
@@ -274,14 +269,6 @@ Module.register("weather", {
 			"calcNumSteps",
 			function (forecast) {
 				return Math.min(forecast.length, this.config.maxNumberOfDays);
-			}.bind(this)
-		);
-
-		this.nunjucksEnvironment().addFilter(
-			"calcNumPaces",
-			function (value) {
-				return value.oldPaces().length
-				// return 7;
 			}.bind(this)
 		);
 
